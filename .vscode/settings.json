@@ -1,0 +1,16 @@
+{
+  "chat.useAgentsMdFile": true,
+  "chat.agentFilesLocations": {
+    ".github/agents": true
+  },
+  "chat.promptFilesLocations": {
+    ".github/prompts": true
+  },
+  "chat.agentSkillsLocations": {
+    "skills/product-owner": true,
+    "skills/tech-lead": true,
+    "skills/backend-developer": true,
+    "skills/qa-engineer": true,
+    "skills/security-specialist": true
+  }
+}

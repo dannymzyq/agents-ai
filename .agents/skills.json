@@ -1,0 +1,9 @@
+{
+  "entries": [
+    { "path": "skills/product-owner" },
+    { "path": "skills/tech-lead" },
+    { "path": "skills/backend-developer" },
+    { "path": "skills/qa-engineer" },
+    { "path": "skills/security-specialist" }
+  ]
+}
