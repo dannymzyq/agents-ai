@@ -1,6 +1,6 @@
 # Kit de Agentes SDLC Bancarios para Visual Studio Code
 
-Equipo de 5 agentes especialistas + 1 agente orquestador diseñado para auditar, planificar mejoras (mediante Acta consensuada) y ejecutar cambios sobre microservicios bancarios existentes en **Java 21**, **Quarkus 3.x** y **Karate DSL**, funcionando **100% desde el Chat Agente de VS Code sin instalar Python ni herramientas externas**.
+Equipo de 5 agentes especialistas + 1 agente orquestador diseñado para auditar, planificar mejoras (mediante Acta consensuada) y ejecutar cambios sobre microservicios bancarios existentes en **Java 21**, **Quarkus 3.x** y **Karate DSL**, respetando el **contrato OpenAPI existente como fuente de verdad inmutable** y el esquema de validación por **sesiones y `access tokens` propagados**, funcionando **100% desde el Chat Agente de VS Code sin instalar Python ni herramientas externas**.
 
 ---
 
@@ -21,14 +21,14 @@ Equipo de 5 agentes especialistas + 1 agente orquestador diseñado para auditar,
 
 ## Cómo Ejecutar el Flujo Completo sobre un Microservicio Existente
 
-### Paso 1 — Revisión Individual + Generación del Acta (Sin tocar código)
+### Paso 1 — Revisión Individual + Generación del Acta (Sin tocar código ni OpenAPI)
 En el Chat de VS Code escribe:
 ```text
 /auditar-microservicio
 ```
 *(O selecciona el agente **`sdlc-orchestrator`** en el selector del chat y pídele auditar el servicio).*
 
-- Los 5 agentes (`product-owner`, `tech-lead`, `backend-developer`, `qa-engineer`, `security-specialist`) revisan el microservicio bajo sus criterios individuales y de equipo.
+- Los 5 agentes (`product-owner`, `tech-lead`, `backend-developer`, `qa-engineer`, `security-specialist`) revisan el microservicio bajo sus criterios individuales y de equipo tomando el **contrato OpenAPI como fuente de verdad**.
 - Se genera **`docs/sdlc/ACTA-REVISION.md`** con observaciones trazables (`Archivo:Línea`), acuerdos del equipo y el Plan de Trabajo numerado (`T-01`, `T-02`, ...).
 - El orquestador **se detiene automáticamente** para que revises, ajustes o respondas cualquier `[PREGUNTA ABIERTA]` en el Acta.
 
@@ -37,4 +37,4 @@ Cuando estés conforme con `docs/sdlc/ACTA-REVISION.md`, haz clic en el botón *
 ```text
 /ejecutar-acta
 ```
-- El orquestador coordina tarea por tarea: definición/contrato (`product-owner` + `tech-lead`) → código Quarkus/Java 21 y `./mvnw test` (`backend-developer`) → pruebas de componentes y mocks en Karate (`qa-engineer`) → auditoría de cierre (`security-specialist` + `tech-lead`), actualizando el estado en `docs/sdlc/ACTA-REVISION.md`.
+- El orquestador coordina tarea por tarea: criterios y alineación con OpenAPI (`product-owner` + `tech-lead`) → código Quarkus/Java 21 y `./mvnw test` (`backend-developer`) → pruebas de componentes y mocks en Karate (`qa-engineer`) → auditoría de cierre (`security-specialist` + `tech-lead`), actualizando el estado en `docs/sdlc/ACTA-REVISION.md` **sin modificar jamás el contrato OpenAPI**.

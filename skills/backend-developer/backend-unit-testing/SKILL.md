@@ -7,7 +7,7 @@ description: >-
 
 # Pruebas Unitarias y de Capa en Quarkus 3 + Java 21
 
-Procedimiento para verificar reglas financieras, seguridad y adaptadores antes de entregar a QA y revisión técnica.
+Procedimiento para verificar reglas financieras, validación/propagación de sesiones y `access tokens`, y adaptadores antes de entregar a QA y revisión técnica.
 
 ## Pasos
 
@@ -15,11 +15,11 @@ Procedimiento para verificar reglas financieras, seguridad y adaptadores antes d
    - Ejecutar tests ultrarrápidos con `JUnit 5` + `Mockito` (`@ExtendWith(MockitoExtension.class)`).
    - Validar cálculos `BigDecimal` verificando tanto valor (`compareTo == 0`) como escala exacta esperada, bordes monetarios y transiciones de estado.
 2. **Pruebas de Integración Ligera (`@QuarkusTest`)**:
-   - Mockear clientes HTTP salientes declarando **ambas anotaciones juntas**: `@InjectMock @RestClient` (omitir `@RestClient` rompe la inyección CDI).
-   - Probar autorización y prevención BOLA usando `@TestSecurity(user = "...", roles = {...})` y claims simulados (`quarkus-test-security`).
-   - En pruebas con RestAssured, configurar `JsonConfig.jsonConfig().numberReturnType(BIG_DECIMAL)` o validar decimales en texto plano para evitar conversión a `float`.
-3. **Trazabilidad con Criterios de Negocio**:
-   - Cubrir cada criterio del `product-owner`: flujo feliz, rechazos de negocio, conflicto de idempotencia y validación de campos obligatorios (`400`).
+   - Mockear clientes HTTP salientes declarando **ambas anotaciones juntas**: `@InjectMock @RestClient` (omitir `@RestClient` rompe la inyección CDI) y verificar que se propaguen las cabeceras de sesión y `access token` esperadas.
+   - Probar validación de sesión/`access token`, autorización y prevención BOLA usando `@TestSecurity(user = "...", roles = {...})` y claims simulados (`quarkus-test-security`).
+   - En pruebas con RestAssured, configurar `JsonConfig.jsonConfig().numberReturnType(BIG_DECIMAL)` o validar decimales en texto plano asegurando conformidad con el esquema del OpenAPI.
+3. **Trazabilidad con Criterios de Negocio y OpenAPI**:
+   - Cubrir cada criterio del `product-owner`: flujo feliz, rechazos de negocio, sesión/`access token` inválido y validación de campos obligatorios (`400`) según el contrato OpenAPI.
 
 ## Validación
 
